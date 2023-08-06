@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 import com.db.resource.myDbConnection;
 import com.ecom.product.Product;
+import com.ecom.product.buyOrder;
+import com.ecom.user.UserInfoImpl;
 import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
 public class AdminInfoImpl implements AdminInfo{
@@ -17,6 +19,7 @@ public class AdminInfoImpl implements AdminInfo{
 	int quantity=0;
 	String contents="";
 	int id=0;
+	 int price=0;
 	@Override
 	public void addProduct() {
 		   Scanner sc=new Scanner(System.in);
@@ -91,10 +94,10 @@ public class AdminInfoImpl implements AdminInfo{
 
 	@Override
 	public void displayAmount() {
-		 
-		
-	}
-
+		buyOrder order=new buyOrder();
+		order.getBill();
+			 
+		}
 	@Override
 	public void checkQuantity() {
 		System.out.println("Enter the Product Id>>");
@@ -109,7 +112,7 @@ public class AdminInfoImpl implements AdminInfo{
 			    while(rs.next()) {
 			    	  
 				 	 System.out.println("Product quantity:: "+rs.getInt("quantity"));
-				 }
+				  }
 			   ps.close();
 				rs.close();
 			    con.close();

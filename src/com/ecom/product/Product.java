@@ -7,6 +7,34 @@ private String prodName;
 private String prodDesc;
 private int quantity;
 private int price;
+private int totalPrice;
+
+public Product() {
+ 	 
+}
+
+
+public Product(int prodId, String prodName, String prodDesc, int quantity, int price, int totalPrice) {
+	super();
+	this.prodId = prodId;
+	this.prodName = prodName;
+	this.prodDesc = prodDesc;
+	this.quantity = quantity;
+	this.price = price;
+	this.totalPrice = totalPrice;
+}
+
+
+public Product(int prodId, String prodName, int quantity, int price, int totalPrice) {
+	super();
+	this.prodId = prodId;
+	this.prodName = prodName;
+	this.quantity = quantity;
+	this.price = price;
+	this.totalPrice = totalPrice;
+}
+
+
 public int getProdId() {
 	return prodId;
 }
@@ -37,11 +65,19 @@ public int getPrice() {
 public void setPrice(int price) {
 	this.price = price;
 }
+ 
+public int getTotalPrice() {
+	return totalPrice;
+}
+public void setTotalPrice(int totalPrice) {
+	this.totalPrice = totalPrice;
+}
 @Override
 public String toString() {
 	return "Product [prodId=" + prodId + ", prodName=" + prodName + ", prodDesc=" + prodDesc + ", quantity=" + quantity
-			+ ", price=" + price + "]";
+			+ ", price=" + price + ", totalPrice=" + totalPrice + "]";
 }
+ 
 
 
 

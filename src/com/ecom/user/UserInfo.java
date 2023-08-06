@@ -12,6 +12,8 @@ public interface UserInfo {
  void displayUser();
  void addProductOrder();
  public void viewProduct();
+ public void addToCart();
  void buyProduct();
- public void viewCart();
+ public void viewCartItem();
+  void checkPurchaseHistory();
 }

@@ -167,7 +167,7 @@ public void addProductOrder() {
 	 try {
 		 
 		 con= myDbConnection.getConnectionDetails();
-		 PreparedStatement ps = con.prepareStatement("insert into order(productName,productPrice,productQuantity,uid,pid) select prodName,price,quantity,user_id,prodId from product");
+		 PreparedStatement ps = con.prepareStatement(" ");
 		 ps.setInt(1, prodid);
 		 ResultSet rs = ps.executeQuery();
 		 while(rs.next()) {
@@ -255,8 +255,96 @@ public void viewCart() {
 	System.out.println("Cart details >> ");
 	System.out.println("\nItem\t\t\tQuantity\tPrice\t\n");
 	System.out.println(contents);
+	System.out.println("======================================");
 	System.out.println("Your cart total is : " + this.total + " rs.");
 }
 
- 
+@Override
+public void addToCart(){
+	
+	Scanner input = new Scanner(System.in);
+	System.out.println("Please Confirm User Name : ");
+	String uname = input.next();
+
+	System.out.println("Enter number of product you want to add to Cart : ");
+	int count = input.nextInt();
+ try {
+		 con= myDbConnection.getConnectionDetails();
+		 PreparedStatement ps = con.prepareStatement("insert into cart (uname,pid,quantity) values(?,?,?)");
+		  
+		  
+		  for (int i = 1; i <= count; i++) {
+				System.out.println("Enter Product Id :");
+				int pid = input.nextInt();
+				System.out.println("Enter Product Quantity :");
+				int quantity = input.nextInt();
+
+				ps.setString(1, uname);
+				ps.setInt(2, pid);
+				ps.setInt(3, quantity);
+
+				int add = ps.executeUpdate();
+
+				System.out.println(add + " Product added to cart Successfully...");
+				System.out.println("------------------------------------");
+				
+			}
+
+		  ps.close();
+		  con.close();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+ }
+
+@Override
+public void viewCartItem() {
+	Scanner sc=new Scanner(System.in);
+	 try {
+		 con= myDbConnection.getConnectionDetails();
+		PreparedStatement ps = con.prepareStatement("select * from cart where uname=?");
+		System.out.println("Please Enter your User Name to View Cart :");
+		String userName=sc.nextLine();
+		ps.setString(1, userName);
+		ResultSet result = ps.executeQuery();
+		System.out.println("product Id"+"\t\t"+"Quantity");
+
+			ResultSet rs = ps.executeQuery();
+			  while(rs.next()) {
+				  System.out.println(rs.getInt(1)+"\t\t\t"+rs.getInt(2));
+				   
+			 }
+	 } catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+}
+
+@Override
+public void checkPurchaseHistory() {
+       Scanner sc=new Scanner(System.in);
+	try {
+		
+		con= myDbConnection.getConnectionDetails();
+		PreparedStatement ps = con.prepareStatement("select * from buyorder where userName=?");
+		System.out.println("Please Enter your UserName to check your order details :");
+		String userName=sc.nextLine();
+		ps.setString(1, userName);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			System.out.println("Order Id      >> " + rs.getInt("orderid"));
+			System.out.println("User Name     >> " + rs.getString("userName"));
+			System.out.println("Product Id    >> " + rs.getString("productId"));
+			System.out.println("Quantity      >> " + rs.getString("quantity"));
+			System.out.println("Product price >> " + rs.getString("pricePerUnit"));
+			System.out.println("Total Bill    >> " + rs.getString("total_price"));
+			System.out.println("------------------------------------------------------------------");
+			System.out.println();
+		}
+       
+	} catch (Exception e) {
+		e.printStackTrace();
+	} 
+	
+}
 }  

@@ -1,30 +1,21 @@
 package com.ecom.product;
 
-public class Cart extends Product {
+public class Cart{
 
-private int cartId;
-private int prodId;
-private String productName;	
+private int cartid;
+private int pId;
 private int quantity;
-private int price;
-
-public int getCartId() {
-	return cartId;
+public int getCartid() {
+	return cartid;
 }
-public void setCartId(int cartId) {
-	this.cartId = cartId;
+public void setCartid(int cartid) {
+	this.cartid = cartid;
 }
-public int getProdId() {
-	return prodId;
+public int getpId() {
+	return pId;
 }
-public void setProdId(int prodId) {
-	this.prodId = prodId;
-}
-public String getProductName() {
-	return productName;
-}
-public void setProductName(String productName) {
-	this.productName = productName;
+public void setpId(int pId) {
+	this.pId = pId;
 }
 public int getQuantity() {
 	return quantity;
@@ -32,18 +23,13 @@ public int getQuantity() {
 public void setQuantity(int quantity) {
 	this.quantity = quantity;
 }
-public int getPrice() {
-	return price;
-}
-public void setPrice(int price) {
-	this.price = price;
-}
 @Override
 public String toString() {
-	return "Cart [cartId=" + cartId + ", prodId=" + prodId + ", productName=" + productName + ", quantity=" + quantity
-			+ ", price=" + price + "]";
+	return "Cart [cartid=" + cartid + ", pId=" + pId + ", quantity=" + quantity + "]";
 }
  
+
+
 
  
 

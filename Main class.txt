@@ -9,8 +9,6 @@ import java.util.Scanner;
 import com.db.resource.myDbConnection;
 import com.ecom.admin.AdminInfo;
 import com.ecom.admin.AdminInfoImpl;
-import com.ecom.guest.GuestInfo;
-import com.ecom.guest.GuestInfoImpl;
 import com.ecom.user.User;
 import com.ecom.user.UserInfo;
 import com.ecom.user.UserInfoImpl;
@@ -19,34 +17,23 @@ import com.ecom.user.UserInfoImpl;
 
 public class Test {
 	Connection con=null;
-	UserInfo userinfo=null;
+	
 	public void getEcomOperation() { 
 		 
 		System.out.println("****Welcome to E-Commerce Application****");
 		
-		  
+		 User user=new User();
 		 
 		 System.out.println("1.New user");
-		 System.out.println("2.Already Registered User/Admin/Guest");
-		  System.out.println("Enter Your Choice here!!!");
-		 Scanner scan=new Scanner(System.in);
-		  int select=scan.nextInt();
-		   
-		  if(select==1) {
-			  System.out.println("You are New User !!!");
-			   System.out.println("Register here first!!!");
-			   UserInfoImpl input=new UserInfoImpl();
-			     input.getUserInput();
-			     User user=new User();
-			     System.out.println(user);
-			    userinfo.getUserDetails(user);
-		       
-		  }else if(select==2) {
-			  Scanner scanner=new Scanner(System.in); 
+		 System.out.println("2.Login");
+		 System.out.println("3.Admin");
+		 System.out.println("4.Guest");
+		  
+		 Scanner sc=new Scanner(System.in);
 		 System.out.println("Enter the UserName");
-		 String name=scanner.nextLine();
+		 String name=sc.nextLine();
 		 System.out.println("Enter the UserPassword");
-		 String password=scanner.nextLine();
+		 String password=sc.nextLine();
 	    String query="select userName,UserPassword,userRole from user";
 		  try {
 			   con= myDbConnection.getConnectionDetails();
@@ -56,76 +43,70 @@ public class Test {
 					  String nameDb=rs.getString("userName");
 					 String passDb=rs.getString("UserPassword");
 					 String roleDb=rs.getString("userRole");
-			 
-					  if(name.equals(nameDb)&& password.equals(passDb)&&roleDb.equals("User")) {
+					 if(name.equals(nameDb)&& password.equals(passDb)&&roleDb.equals("User")) {
 						 System.out.println("You are User!!!");
 						 
-						  
-						 System.out.println("        1. If you are already registed then login from here       ");
-						 System.out.println("        2. If you want to View all Product Details    ");
-						 System.out.println("        3. Buy Product          ");
-						 System.out.println("        4. Product Item Add to Cart           ");
-						 System.out.println("        5. Do you want to view cart           ");
-						 System.out.println("        6. Display All User Details           ");
-						 System.out.println("        7.  Check Purchase Items Details          ");
+						 System.out.println("        1. If you are new user register first to view all Product details          ");
+						 System.out.println("        2. If you are already registed then login from here       ");
+						 System.out.println("        3. If you want to View all Product Details    ");
+						 System.out.println("        4. Buy Product          ");
+						 System.out.println("        5. Product Item Add to Cart           ");
 							System.out.println("Enter your choice::");
-							int choice=scanner.nextInt();
-							 
+							int choice=sc.nextInt();
+							UserInfo userinfo=null;
 							
 							switch(choice){
-							 case 1: System.out.println("Checking User Login");
+							
+							case 1: System.out.println("Registering User");
+							      userinfo=new UserInfoImpl();
+							      UserInfoImpl userinfoimpl=new UserInfoImpl();
+							      User userInput = userinfoimpl.getUserInput();
+							     userinfo.getUserDetails(userInput);  
+							       break;
+							
+							case 2: System.out.println("Checking User Login");
 							      userinfo=new UserInfoImpl();
 							       userinfo.userLogin();
 						           break;
 						           
-							case 2: System.out.println("Display all Products in Sorting order");
+							case 3: System.out.println("Display all Products in Sorting order");
 							       userinfo=new UserInfoImpl(); 
 							       userinfo.viewProduct();
 					               break;
 					               
-							case 3: System.out.println("Do you want to buy product");
+							case 4: System.out.println("Do you want to buy product");
 						             userinfo=new UserInfoImpl(); 
 						             userinfo.buyProduct();
 						              break;
-						              
-							case 4:System.out.println("Add to Cart");
-			                       userinfo=new UserInfoImpl();
-			                       userinfo.addToCart();
-			                       break;
 					          
-							case 5: System.out.println("view cart Item");
+							case 5: System.out.println("view cart");
 				                      userinfo=new UserInfoImpl(); 
-				                      userinfo.viewCartItem();
+				                      userinfo.viewCart();
 				                      break;
 				                      
 							case 6:System.out.println("Display User Details");
 						            userinfo=new UserInfoImpl();
 						            userinfo.displayUser();
 						            break;
-						            
-							case 7:System.out.println("Displaying purchase History Details");
-				                  userinfo=new UserInfoImpl();
-				                   userinfo.checkPurchaseHistory();
-				                  break;
-							 
 							}
 					 }
 					 else if(name.equals(nameDb)&& password.equals(passDb)&&roleDb.equals("Admin")){
 						  System.out.println("You are Admin!!!");
 						  
-						     System.out.println("        1.  Add product                 ");
+						     System.out.println("        1.  Add product into cart                ");
 							 System.out.println("        2.  Display totalbill amount                  ");
 							 System.out.println("        3.  Check User history               ");
 							 System.out.println("        4.   Check product quantity             ");
 							 System.out.println("        5.  Checking user registered     ");
-							 System.out.println("        6.  Display all Amount    ");
-							 
-							 int choice=scanner.nextInt();
+							 System.out.println("        6.      ");
+							 System.out.println("        7.       ");
+							 System.out.println("Enter your choice::");
+							int choice=sc.nextInt();
 							AdminInfo admininfo=null;
 							
                           switch(choice) {
 							  
-                          case 1: System.out.println("Adding Product");
+                          case 1: System.out.println("Adding Product into Cart");
           	                      admininfo=new AdminInfoImpl(); 
           	                      admininfo.addProduct();
                                   break;
@@ -149,22 +130,9 @@ public class Test {
                                   admininfo=new AdminInfoImpl(); 
                                   admininfo.checkRegisterUser();
                                   break;
-                          case 6: System.out.println("Display all Amount");
-                                    admininfo=new AdminInfoImpl(); 
-                                    admininfo.displayAmount();
-                                     break;
 							 
 							}
 					 }
-					 
-					 else if(name.equals(nameDb)&& password.equals(passDb)&&roleDb.equals("Guest")){
-							  System.out.println("You are Guest!!!");
-							   System.out.println("You can only View Product Details");
-	          	                     GuestInfo guestinfo=null;
-	          	                    guestinfo=new GuestInfoImpl(); 
-	          	                    guestinfo.viewProductItem();
-	               }
-					 
 				 }
 			ps.close();
 			rs.close();
@@ -172,11 +140,17 @@ public class Test {
 		  }catch (Exception e) {
 			 e.printStackTrace();
 		}
-		  }
- 		
+	 
+	    
+		
+		 
+		
 }	
 		
-  public static void main(String[] args) {	
+		
+		
+		
+	 public static void main(String[] args) {	
 			Test test=new Test();
 			test.getEcomOperation();
 		 

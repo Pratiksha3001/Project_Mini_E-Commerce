@@ -4,8 +4,9 @@ public interface AdminInfo {
 
 	void addProduct();
 	void totalBill();
-	void displayAmount();
+	public void displayAmount();
 	void checkQuantity();
 	void checkRegisterUser();
 	void checkUserHistory();
+	 
 }
