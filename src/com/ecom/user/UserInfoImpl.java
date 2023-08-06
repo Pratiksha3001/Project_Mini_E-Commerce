@@ -65,13 +65,14 @@ public class UserInfoImpl implements UserInfo {
 		 
 		  User user=new User(firstName, lastName, userName, userPass, city, emailId,mobNumber);
 		 System.out.println(user);
+		 getUserDetails(user);
 		return user;
 		  
   }
 @Override
 public void getUserDetails(User user) {
 	try {
-		  
+		  System.out.println("Enter");
 		 con= myDbConnection.getConnectionDetails();
 		 PreparedStatement ps = con.prepareStatement("insert into user(firstName,lastName,userName,userPassword,city,mailId,mobileNumber,userRole)values(?,?,?,?,?,?,?,?)");
 		  

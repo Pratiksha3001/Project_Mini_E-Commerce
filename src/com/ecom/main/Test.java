@@ -36,10 +36,9 @@ public class Test {
 			  System.out.println("You are New User !!!");
 			   System.out.println("Register here first!!!");
 			   UserInfoImpl input=new UserInfoImpl();
-			     input.getUserInput();
-			     User user=new User();
-			     System.out.println(user);
-			    userinfo.getUserDetails(user);
+			    User user= input.getUserInput();
+			    System.out.println(user);
+			     
 		       
 		  }else if(select==2) {
 			  Scanner scanner=new Scanner(System.in); 
